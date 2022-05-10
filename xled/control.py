@@ -663,6 +663,17 @@ class ControlInterface(object):
         assert all(key in app_response.keys() for key in required_keys)
         return app_response
 
+    def set_mode_json(self, json):
+    """
+    Uploads complete json configuration to led/mode
+    :param dict json: contains mode config
+    """
+
+    url = urljoin(self.base_url, "led/mode")
+    response = self.session.post(url, json=json)
+    app_response = ApplicationResponse(response)
+    return app_response
+
     def set_movies_current(self, movie_id):
         """
         Sets which movie in the movie list to play
