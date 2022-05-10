@@ -48,8 +48,9 @@ class ControlInterface(object):
     :param str host: Hostname (or IP address) of a device to control
     """
 
-    def __init__(self, host, hw_address=None):
+    def __init__(self, host, hw_address=None, port=80):
         self.host = host
+        self.port = port
         self.hw_address = hw_address
         self._session = None
         self._udpclient = None
@@ -58,7 +59,7 @@ class ControlInterface(object):
     @property
     def base_url(self):
         if not self._base_url:
-            self._base_url = "http://{host}/xled/v1/".format(host=self.host)
+            self._base_url = f"http://{self.host}:{self.port}/xled/v1/"
             assert self._base_url
         return self._base_url
 
